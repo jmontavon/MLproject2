@@ -36,4 +36,3 @@ To launch segmentation training :
 
 `python3 DELTA_train_segmentation.py`
 
-# 
