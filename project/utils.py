@@ -1,4 +1,5 @@
 import skimage.morphology as morph
+import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
@@ -125,3 +126,8 @@ def seg_weights_2D(mask, classweights=(1,1)):
     
     return weightmap
 
+def set_box_color(bp, color):
+    plt.setp(bp['boxes'], color=color)
+    plt.setp(bp['whiskers'], color=color)
+    plt.setp(bp['caps'], color=color)
+    plt.setp(bp['medians'], color=color)
