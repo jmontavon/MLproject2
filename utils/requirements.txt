@@ -1,8 +1,9 @@
 numpy
 spyder
-scikit-image>=0.18
-tifffile>=2021
-opencv>=4.1
+scikit-image
+tifffile
+opencv-python
 tensorflow
 ffmpeg-python
+matplotlib
 
