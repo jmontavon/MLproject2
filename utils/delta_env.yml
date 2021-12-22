@@ -1,0 +1,16 @@
+name: delta_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.7
+  - spyder
+  - scikit-image>=0.18
+  - tifffile>=2021
+  - opencv>=4.1
+  - tensorflow-gpu>=2.0
+  - ffmpeg-python
+  - git
+  - pip
+  - pip:
+    - python-bioformats

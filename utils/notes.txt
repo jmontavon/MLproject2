@@ -1,0 +1,6 @@
+# Modify python path :
+export PYTHONPATH="${PYTHONPATH}:/Users/acoudray/Desktop/tmp_samba/phd_courses/machine_learning/project2/delta_dev_branch/delta"
+
+# activate conda env for delta : 
+conda activate delta_env
+
