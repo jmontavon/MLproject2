@@ -14,7 +14,7 @@ target_size_seg = (512, 512)
 target_size_track = (256, 256)
 
 # Training sets:
-training_set_seg = 'data/training_segmentation'
+training_set_seg = 'data/training_segmentation_new'
 training_set_track = 'data/training_tracking'
 
 # Pipeline parameters:

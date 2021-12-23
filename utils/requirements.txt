@@ -6,3 +6,5 @@ opencv-python
 tensorflow
 ffmpeg-python
 matplotlib
+ipykernel
+jupyterlab
