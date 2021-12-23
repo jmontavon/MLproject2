@@ -86,5 +86,8 @@ We then analysed cell tracking predictions and compared them to another ground t
 `jupyter notebook PROJECT_proc_cell_track.ipynb`
 
 
+# Simulation and EM algorithm for transition matrix
+To launch the simulation of the cell division and the EM algorithm for the transition matrix, simply launch:
 
+`jupyter notebook PROJECT_simulation_EMalgoritm.ipynb`
 
