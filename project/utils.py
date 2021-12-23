@@ -3,6 +3,89 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
+
+def rangescale(frame, rescale):
+    '''
+    Rescale image values to be within range
+
+    Parameters
+    ----------
+    frame : ND numpy array of uint8/uint16/float/bool
+        Input image(s).
+    rescale : Tuple of 2 values
+        Values range for the rescaled image.
+
+    Returns
+    -------
+    2D numpy array of floats
+        Rescaled image
+
+    '''
+    frame = frame.astype(np.float32)
+    if np.ptp(frame) > 0:
+        frame = ((frame-np.min(frame))/np.ptp(frame))*np.ptp(rescale)+rescale[0]
+    else:
+        frame = np.ones_like(frame)*(rescale[0]+rescale[1])/2
+    return frame
+
+
+def tracking_weights(track, segall, halo_distance = 50):
+    '''
+    Compute weights for tracking training sets
+
+    Parameters
+    ----------
+    track : 2D array
+        Tracking output mask.
+    segall : 2D array
+        Segmentation mask of all cells in current image.
+    halo_distance : int, optional
+        Distance in pixels to emphasize other cells from tracked cell.
+        The default is 50.
+
+    Returns
+    -------
+    weights : 2D array
+        Tracking weights map.
+
+    '''
+
+    # Cell escaped / disappeared:
+    if np.max(track)==0:
+        weights = ((segall>0).astype(np.uint8)*20)+1
+        return weights
+
+    # Distance from the tracked cell:
+    _, dist_from = morph.medial_axis(track==0,return_distance=True)
+    dist_from = halo_distance-dist_from
+    dist_from[dist_from<1] = 1
+
+    # Distance from border within cell:
+    _, dist_in = morph.medial_axis(track>0,return_distance=True)
+
+    # Tracked cell skeleton:
+    skel = morph.skeletonize(track,method='lee')
+
+    # Tracked Cell weights are distance from edges + skeleton at 255 in the center
+    weights = rangescale(dist_in+1,(1,42))
+    weights[skel>0] = 255
+
+    # Rest of the image is weighed according to distance from tracked cell:
+    weights+= 63*(dist_from/halo_distance) \
+        *(segall>0).astype(np.float32)\
+            *(track==0).astype(np.float32)
+
+    weights*=100
+    weights[dist_from<1] = 1
+
+    return weights
+
+# Normalize image between 0 and 255
+def range_0255(mat):
+    mat_01 = (mat - np.min(mat))/(np.max(mat) - np.min(mat))
+    mat_0255 = mat_01*255
+    return(mat_0255.astype('uint16'))
+
 # Script to reindex cell label with integers
 def reindex_cell_labels(img):
     idx = np.unique(img)
