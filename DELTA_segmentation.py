@@ -15,8 +15,8 @@ from delta.utilities import cfg
 import numpy as np
 
 # Files:
-inputs_folder = 'testing_curated_seg_1/img'
-outputs_folder = 'testing_curated_seg_1/seg_out_Delta_defaults'
+inputs_folder = 'data/input_for_predictions/segmentation/testing_set/img'
+outputs_folder = 'data/predictions/segmentation/seg_out_new'
 
 if not os.path.exists(outputs_folder):
     os.mkdir(outputs_folder)

@@ -17,9 +17,9 @@ from delta.data import saveResult_track, predictCompilefromseg_track
 from delta.model import unet_track
 import os, cv2
 
-images_folder = 'training_tracking_n3/test_img/'
-segmentation_folder = 'training_tracking_n3/test_seg/'
-outputs_folder = 'training_tracking_n3/track_output/'
+images_folder = 'data/input_for_predictions/tracking/img/'
+segmentation_folder = 'data/input_for_predictions/tracking/seg/'
+outputs_folder = 'data/predictions/tracking/new_track_pred/'
 
 if not os.path.exists(outputs_folder):
     os.mkdir(outputs_folder)
